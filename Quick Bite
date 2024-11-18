@@ -1,0 +1,274 @@
+import datetime
+
+# Quick Bite MenuList
+
+# Create a list of menu,
+# where each menu is represented by a list.
+MenuList = [["Burger", 6], ["Pizza", 10], ["Fries", 3], ["Brownie", 5], ["Apple Crumble", 5], ["Juice", 2]]
+
+
+# ---------------------------------------------------
+# Define the main function for managing the Menu
+def ManageMenu():
+    print(""" 
+
+  ------------------------------------------------------
+ |======================================================| 
+ |=======Welcome To Quick Bite Management System========|
+ |======================================================|
+  ------------------------------------------------------
+
+Enter 1 : To View Menu List 
+Enter 2 : To Add New Item 
+Enter 3 : To Search an Item
+Enter 4 : To Remove an Item
+
+		""")
+
+    try:
+        UserInput = int(input("Please select an option: "))
+    except ValueError:
+        exit("\nPlease use enter a number to choose an option")
+
+    if (UserInput == 1):
+        print("Menu List\n")
+        # ---------------------------------------------------
+        # ------------ Print the Quick Bite Menu ------------
+        for Menu in MenuList:
+            print(f"=> {Menu}")
+
+    elif (UserInput == 2):
+        # ---------------------------------------------------
+        # ---------- Get the details of the Item --------
+        # Receive the Name of the new item.
+        NewItemName = input("Enter New Item: ")
+
+        # Receive the price of the new item
+        NewItemPrice = int(input("Enter Price for New Item: "))
+
+        # Create a list to represent the new Item
+        NewItem = [NewItemName, NewItemPrice]
+
+        # ---------------------------------------------------
+        # --------- Add the Item to the menu ----------
+        # Check if new item already exists
+        if (NewItem in MenuList):
+            print(f"\nThis item {NewItem} Already In The Menu.")  # Error Message
+        else:
+            # Add the new item to the Menu List (i.e., MenuList)
+            MenuList.append(NewItem)
+            print(f"\n=> New Item {NewItem} Successfully Add \n")
+            for Item in MenuList:
+                print(f"=> {Item}")
+
+    elif (UserInput == 3):
+        # ---------------------------------------------------
+        # ---------- Get the details of the Menu --------
+        # Receive the Name of the item to Search.
+        SrcIteName = input("Enter Item Name To Search: ")
+
+        # Receive the price of  the item to Search.
+        SrcItePrice = int(input("Enter price of the item Search: "))
+
+        # Create a list to represent the item to remove
+        SrcItem = [SrcIteName, SrcItePrice]
+
+        # ---------------------------------------------------
+        # ------------- Search for the Item --------------
+        if (SrcItem in MenuList):
+            print(f"\n=> Item Found {SrcItem}.")
+        else:
+            print(f"\n=> Item not Found {SrcItem}.")  # Error Message
+
+    elif (UserInput == 4):
+        # ---------------------------------------------------
+        # ------------ Get the details of the Menu ----------
+        # Receive the Name of the item to remove.
+        RmIteName = input("Enter Item Name To Remove: ")
+
+        # Receive the Price of the Item to remove.
+        RmItePrice = int(input("Enter Price of The Item To Remove: "))
+
+        # Create a list to represent  the Item to remove
+        RmItem = [RmIteName, RmItePrice]
+
+        # ---------------------------------------------------
+        # ------ Remove the Item from the database -------
+        if (RmItem in MenuList):
+            MenuList.remove(RmItem)
+            print(f"\n=> Item {RmItem} Successfully Removed \n.")
+
+        else:
+            print(f"\n=> No Record Found of This Item {RmItem}.")  # Error Message
+
+
+    elif (UserInput < 1 or UserInput > 4):
+        print("Please Enter Valid Option")
+
+
+# Define a function to check if the user wants to continue and direct accordingly.
+def RunAgain():
+    # Ask user if they wish to continue to
+    RunAgn = input("\nWant to continue y/n?: ")
+    # check if response is 'y' (it will change the response to lowercase first).
+    if (RunAgn.lower() == 'y'):
+        # Run the application again
+        ManageMenu()
+        # Run the function to find out if the user wants to continue
+        RunAgain()
+    else:
+        quit()
+
+
+# =========================
+print(""" 
+
+  ------------------------------------------------------
+ |======================================================| 
+ |================ Welcome To Quick Bite ===============|
+ |======================================================|
+  ------------------------------------------------------
+  """)
+OperationType = input("Management Operation? y/n")
+
+if OperationType == 'y':
+    ManageMenu()
+    RunAgain()
+else:
+    print(""" 
+
+  ------------------------------------------------------
+ |======================================================| 
+ |============  Welcome To Quick Bite   ================|
+ |============  Food Ordering System    ================|
+ |======================================================|
+  ------------------------------------------------------
+		""")
+
+
+    def DisplayMenu():
+        print("\n==============================")
+        print("\n-----Welcome to QuickBite-----")
+        print("\n==============================")
+        print("\n-------Here is the Menu-------")
+        print("\n==============================")
+
+
+        print("\n-What would you like to order?")
+        print("1. Pizza  -  £10")
+        print("2. Burger -   £5")
+        print("3. Pasta  -   £7")
+        print("4. Salad  -   £4")
+        print("5. Cola   -   £2")
+        print("6. Fanta  -   £2")
+        print("================")
+
+
+    def CalculateDiscount(Total, DiscountPercentage):
+        """Apply a discount to the total bill"""
+        return Total - (Total * (DiscountPercentage / 100))
+
+
+    def CalculateTip(Total, TipPercentage):
+        """Calculate tip based on total bill"""
+        return (TipPercentage / 100) *Total
+
+
+    def main():
+        TotalCost = 0
+        DiscountPercentage = 0
+        TipPercentage = 0
+
+        # Display menu
+        DisplayMenu()
+
+        # Take user orders
+        while True:
+            try:
+                order = int(input("\nEnter the number of the item you want to order (1-6) or 0 to finish: "))
+                if order == 0:
+                    break
+                elif order == 1:
+                    TotalCost += 10
+                elif order == 2:
+                    TotalCost += 5
+                elif order == 3:
+                    TotalCost += 7
+                elif order == 4:
+                    TotalCost += 4
+                elif order == 5:
+                    TotalCost += 2
+                elif order == 6:
+                    TotalCost += 2
+                elif order == 7:
+                    TotalCost += 2
+
+                else:
+                    print("Invalid option, please choose a valid menu item.")
+            except ValueError:
+                print("Invalid input, please enter a number.")
+
+        # Apply discount if applicable
+        DiscountInput = input("\nDo you have a discount coupon? (yes/no): ").strip().lower()
+        if DiscountInput == 'yes':
+            try:
+                DiscountPercentage = float(input("Enter discount percentage (e.g., 10 for 10%): "))
+            except ValueError:
+                print("Invalid discount percentage. No discount applied.")
+
+        if DiscountPercentage > 0:
+            TotalCost = CalculateDiscount(TotalCost, DiscountPercentage)
+            print(f"Discount applied: {DiscountPercentage}%")
+
+        # Calculate tip
+        try:
+            TipPercentage = float(input("\nEnter tip percentage (e.g., 10 for 10%): "))
+        except ValueError:
+            print("Invalid input for tip percentage. No tip will be added.")
+            TipPercentage = 0
+
+        # If TipPercentage is valid, calculate the tip and update the total cost
+        if TipPercentage > 0:
+            TipAmount = CalculateTip(TotalCost, TipPercentage)
+            TotalCost += TipAmount
+            print(f"Tip Amount: ${TipAmount:.2f}")
+        else:
+            print("No tip added.")
+
+        # Display the new total cost
+        print(f"Total Cost including tip: ${TotalCost:.2f}")
+
+        # Display the total cost
+        print("\n===================================")
+        print("\n------------ Total Bill -----------")
+        print("\n===================================")
+        print(f"Total cost (before discount): £{TotalCost:.2f}")
+        if DiscountPercentage > 0:
+            print(f"Discount applied: {DiscountPercentage}%")
+        print(f"Tip: £{TipAmount:.2f}")
+
+        print(f"Total amount to pay: £{TotalCost:.2f}")
+
+        print("\n=====================================")
+        print("=======Thankyou for your Order=======")
+        print("\n=====================================")
+
+        print("Your order is on its way")
+
+        print("-See you next time-")
+
+        print("Download the app to get 10% discount next time")
+        print("\n==============================================")
+
+
+    if __name__ == "__main__":
+        main()
+
+    RunAgain()
+# ============================================
+# =============== Begin ======================
+# Run the main function for managing quick bite
+# ManageMenu()
+
+# Run the function to find out if the use wants to continue
+# RunAgain()
